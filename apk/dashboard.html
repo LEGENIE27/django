@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de Bord</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Styles de base */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        .doctor {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+        .doctor:last-child {
+            border-bottom: none;
+        }
+        .doctor-info {
+            display: flex;
+            align-items: center;
+        }
+        .doctor-info img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+        .actions button {
+            padding: 8px 15px;
+            background-color: #6e8efb;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+        .actions button:hover {
+            background-color: #5a75e3;
+        }
+        .prescription-item {
+            border-bottom: 1px solid #ddd;
+            padding: 10px;
+        }
+        .message {
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Tableau de Bord</h1>
+
+        <!-- Liste des médecins -->
+        <div class="section">
+            <h2>Liste des Médecins</h2>
+            {% for doctor in doctors %}
+                <div class="doctor">
+                    <div class="doctor-info">
+                        <img src="https://via.placeholder.com/50" alt="Photo du médecin">
+                        <div>
+                            <p><strong>Dr. {{ doctor.user.nom }}</strong> - {{ doctor.specialite }}</p>
+                            <p>Adresse du cabinet : {{ doctor.adresse_cabinet }}</p>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <button onclick="prendreRdv({{ doctor.id }})">Prendre un RDV</button>
+                        <button onclick="envoyerMessage({{ doctor.user.id }})">Envoyer un Message</button>
+                    </div>
+                </div>
+            {% empty %}
+                <p>Aucun médecin disponible.</p>
+            {% endfor %}
+        </div>
+
+        <!-- Liste des ordonnances -->
+        <div class="section">
+            <h2>Vos Ordonnances</h2>
+            {% for ordonnance in ordonnances %}
+                <div class="prescription-item">
+                    <p><strong>Prescrit par Dr. {{ ordonnance.medecin.user.nom }}</strong></p>
+                    <p>Médicaments : {{ ordonnance.medicaments }}</p>
+                    <p>Durée du traitement : {{ ordonnance.duree_traitement }}</p>
+                    <p>Instructions : {{ ordonnance.instructions }}</p>
+                </div>
+            {% empty %}
+                <p>Vous n'avez aucune ordonnance.</p>
+            {% endfor %}
+        </div>
+
+        <!-- Liste des messages -->
+        <div class="section">
+            <h2>Vos Messages</h2>
+            {% for message in messages %}
+                <div class="message">
+                    <p><strong>De : {{ message.sender.nom }}</strong></p>
+                    <p>{{ message.contenu }}</p>
+                    <p><small>Envoyé le : {{ message.date_envoi }}</small></p>
+                </div>
+            {% empty %}
+                <p>Vous n'avez aucun message.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script>
+        function prendreRdv(doctorId) {
+            window.location.href = `/rendezvous/add/?medecin_id=${doctorId}`;
+        }
+
+        function envoyerMessage(doctorId) {
+            window.location.href = `/messages/send/?receiver_id=${doctorId}`;
+        }
+    </script>
+</body>
+</html>

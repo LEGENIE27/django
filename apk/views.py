@@ -11,6 +11,9 @@ def home (request):
 def login (request):
     return render(request, 'login.html')
 
+def dashboard (request):
+    return render(request, 'dashboard.html')
+
 def doctor_list(request):
     # Code pour récupérer et afficher la liste des médecins
     pass
