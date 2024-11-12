@@ -8,6 +8,9 @@ def index(request):
 def home (request):
     return render(request, 'index.html')
 
+def login (request):
+    return render(request, 'login.html')
+
 def doctor_list(request):
     # Code pour récupérer et afficher la liste des médecins
     pass

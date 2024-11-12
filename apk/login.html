@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion</title>
+    <style>
+        /* Style de base pour l'ensemble de la page */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+
+        .login-container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            max-width: 90%;
+            text-align: center;
+        }
+
+        .login-container h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #555;
+        }
+
+        .login-container input {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .login-container input:focus {
+            border-color: #6e8efb;
+            outline: none;
+            box-shadow: 0 0 5px rgba(110, 142, 251, 0.5);
+        }
+
+        .login-container button {
+            width: 100%;
+            padding: 12px;
+            background-color: #6e8efb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .login-container button:hover {
+            background-color: #5a75e3;
+        }
+
+        .login-container .forgot-password {
+            display: block;
+            margin-top: 15px;
+            font-size: 14px;
+            color: #6e8efb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .login-container .forgot-password:hover {
+            color: #5a75e3;
+        }
+
+        .login-container .message {
+            color: red;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Connexion</h2>
+        {% if messages %}
+            {% for message in messages %}
+                <p class="message">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+        <form method="post">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Nom d'utilisateur" required>
+            <input type="password" name="password" placeholder="Mot de passe" required>
+            <button type="submit">Connexion</button>
+        </form>
+        <a href="#" class="forgot-password">Mot de passe oublié ?</a>
+    </div>
+</body>
+</html>

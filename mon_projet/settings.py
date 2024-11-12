@@ -59,6 +59,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
          'DIRS': [os.path.join(BASE_DIR, 'apk')],
+         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -119,6 +120,7 @@ STATIC_URL = '/static/'  # Ajout d'un '/' au début
 
 # Spécifiez les répertoires supplémentaires pour les fichiers statiques
 STATICFILES_DIRS = [
+    #os.path.join(BASE_DIR, 'apk/static'),
     BASE_DIR / 'static',  # Chemin vers le dossier statique de votre app
 ]
 
