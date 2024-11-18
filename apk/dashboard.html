@@ -89,8 +89,9 @@
                         </div>
                     </div>
                     <div class="actions">
-                        <button onclick="prendreRdv({{ doctor.id }})">Prendre un RDV</button>
-                        <button onclick="envoyerMessage({{ doctor.user.id }})">Envoyer un Message</button>
+                        <button onclick="prendreRdv('{{ doctor.id }}')">Prendre un RDV</button>
+                        <button onclick="envoyerMessage('{{ doctor.user.id }}')">Envoyer un Message</button>
+
                     </div>
                 </div>
             {% empty %}
